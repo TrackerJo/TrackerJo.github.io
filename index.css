@@ -1,0 +1,98 @@
+#school-items{
+    background-color: yellow;
+    display: inline-block;
+    height: 500px;
+    width: 500px;
+    
+    overflow: hidden;
+
+
+}
+#snack-items{
+    background-color: white;
+    display: inline-block;
+    height: 500px;
+    width: 500px;
+    
+    overflow: hidden;
+  
+}
+#chip-items{
+    background-color: blue;
+    display: inline-block;
+    height: 500px;
+    width: 500px;
+
+    overflow: hidden;
+    position: 500px 500px;
+}
+
+#store{
+    text-align: center;
+}
+
+#login{
+    text-align: center;
+    font-size: 25px;
+    background-color: rgba(205, 205, 205, 0.722);
+    width: 450px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    
+    
+}
+
+#name {
+    width: 300px;
+    margin-bottom: 1em;
+}
+
+#grade{
+    margin-bottom: 1em;
+}
+
+#login-google{
+   
+    height: 50px;
+    width: 150px;
+    font-size: 17px;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    
+   
+}
+
+#enter-store{
+    height: 30px;
+    width: 100px;
+    font-size: 15px;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+#login-title {
+    margin-bottom: 0em;
+}
+
+#submit-order{
+    height: 50px;
+    width: 150px;
+    font-size: 20px;
+}
+
+#google-signin{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 33%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+}
