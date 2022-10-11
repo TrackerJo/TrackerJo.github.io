@@ -109,6 +109,7 @@ const pricesSheetName = "Shop Prices"
 const bankSheetName = "Bank"
 const ordersSheetName = "Orders"
 let validName = false
+let gradeColumn
 let studentName
 let studentGrade
 let halftimeFacilitator
@@ -258,7 +259,7 @@ enterBtn.addEventListener('click', async () => {
     order.orderHalftime = halftimeFacilitator
     let flattenedData = await getValueRow(storeSheetID, bankSheetName, "A1:K78", 1);
     studentRow = flattenedData.indexOf("Nate") + 1;
-    let gradeColumn
+    
     if(studentGrade == 6)
     {
         gradeColumn = "K"
@@ -311,6 +312,7 @@ submitOrderBtn.addEventListener('click', async () => {
     numOfOrders++;
     await updateValues(storeSheetID, ordersSheetName, "A" + (numOfOrders + 1), [[order.orderName, order.orderHalftime, order.orderItem1, order.orderItem2, order.orderItem3]])
     await updateValues(storeSheetID, ordersSheetName, "H1" , [[numOfOrders]])
+    await updateValue(storeSheetID, bankSheetName, gradeColumn + studentRow, [[numOfTigerBucks]])
     location.reload()
 
 })
