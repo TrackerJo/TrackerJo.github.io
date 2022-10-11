@@ -312,7 +312,7 @@ submitOrderBtn.addEventListener('click', async () => {
     numOfOrders++;
     await updateValues(storeSheetID, ordersSheetName, "A" + (numOfOrders + 1), [[order.orderName, order.orderHalftime, order.orderItem1, order.orderItem2, order.orderItem3]])
     await updateValues(storeSheetID, ordersSheetName, "H1" , [[numOfOrders]])
-    await updateValue(storeSheetID, bankSheetName, gradeColumn + studentRow, [[numOfTigerBucks]])
+    await updateValues(storeSheetID, bankSheetName, gradeColumn + studentRow, [[numOfTigerBucks]])
     location.reload()
 
 })
