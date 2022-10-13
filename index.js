@@ -83,6 +83,7 @@ function handleAuthClick() {
         document.getElementById('login-google').remove()
         document.getElementById('school-info').style.visibility = 'visible';
         
+        
     };
     
     if (gapi.client.getToken() === null) {
@@ -115,10 +116,13 @@ let studentGrade
 let halftimeFacilitator
 let numOfTigerBucks
 let studentRow
-let maxChips
+let maxRaffles
 let maxSnacks
 let maxSchool
 let itemPrices
+let rafflesBought = 0
+let snacksBought = 0
+let schoolBought = 0
 let order = {
     orderName: "",
     orderHalftime: "",
@@ -165,6 +169,23 @@ async function getValue(spreadsheetId, sheetName, range){
         const output = result.values[0]
         console.log(output)
         return output;
+    } catch(err){
+        console.error("Error when trying to get cells: " + err.message)
+        
+    }
+}
+
+async function getIntValue(spreadsheetId, sheetName, range){
+    try{
+    response = await gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: spreadsheetId,
+        range: sheetName + "!" + range,
+        });
+        const result = response.result;
+        console.log(result)
+        const output = result.values[0]
+        console.log(output)
+        return parseInt(output);
     } catch(err){
         console.error("Error when trying to get cells: " + err.message)
         
@@ -258,7 +279,11 @@ enterBtn.addEventListener('click', async () => {
     order.orderName = studentName
     order.orderHalftime = halftimeFacilitator
     let flattenedData = await getValueRow(storeSheetID, bankSheetName, "A1:K78", 1);
-    studentRow = flattenedData.indexOf("Nate") + 1;
+    if(!flattenedData.includes(studentName)){
+        alert("Please make sure you entered your name correctly and try again!")
+        return;
+    }
+    studentRow = flattenedData.indexOf(studentName) + 1;
     
     if(studentGrade == 6)
     {
@@ -270,12 +295,17 @@ enterBtn.addEventListener('click', async () => {
         gradeColumn = "C"
     }
     numOfTigerBucks = await getValue(storeSheetID, bankSheetName, gradeColumn + studentRow)
+    if(numOfTigerBucks == undefined){
+        alert("Please make sure you entered the correct grade and try again!")
+        return;
+    }
+    
     bucksCountlbl.textContent = `${numOfTigerBucks} Tiger Bucks`
-    maxChips = await getValue(storeSheetID, pricesSheetName, "F2")
-    maxSnacks = await getValue(storeSheetID, pricesSheetName, "F3")
-    maxSchool = await getValue(storeSheetID, pricesSheetName, "F4")
-    numOfOrders = await getValue(storeSheetID, ordersSheetName, "H1")
-    itemPrices = await getValueKeyPair(storeSheetID, pricesSheetName, "A2:B21", 0, 1);
+    maxRaffles = await getIntValue(storeSheetID, pricesSheetName, "F2")
+    maxSnacks = await getIntValue(storeSheetID, pricesSheetName, "F3")
+    maxSchool = await getIntValue(storeSheetID, pricesSheetName, "F4")
+    numOfOrders = await getIntValue(storeSheetID, ordersSheetName, "H1")
+    itemPrices = await getValueKeyPair(storeSheetID, pricesSheetName, "A2:B", 0, 1);
     console.log(itemPrices)
     const login = document.getElementById('login');
     login.remove()
@@ -287,6 +317,27 @@ enterBtn.addEventListener('click', async () => {
 
 items.forEach((item) => {
     item.addEventListener('click', () => {
+        let itemType = item.dataset.type;
+        console.log(snacksBought)
+        if(itemType == "school"){
+            if(schoolBought >= maxSchool){
+                alert("You have bought the max number of school items!")
+                return
+            }
+            schoolBought++
+        } else if(itemType == "snack"){
+            if(snacksBought >= maxSnacks){
+                alert("You have bought the max number of snacks!")
+                return
+            }
+           snacksBought++
+        } else if(itemType == "raffle"){
+            if(rafflesBought >= maxRaffles){
+                alert("You have bought the max number of raffle tickets!")
+                return
+            }
+            rafflesBought++
+        }
         let itemPrice = itemPrices[item.id]
         if(parseInt(itemPrice) > parseInt(numOfTigerBucks)){
             alert("You only have " + numOfTigerBucks + " tiger bucks and you need " + itemPrice + " tiger bucks") 
@@ -294,13 +345,7 @@ items.forEach((item) => {
         }
         numOfTigerBucks -= itemPrice
         numOfItemsBought++
-        if(numOfItemsBought == 1){
-            order.orderItem1 = item.id
-        } else if(numOfItemsBought == 2){
-            order.orderItem2 = item.id
-        } else{
-            order.orderItem3 = item.id
-        }
+        order["orderItem" + numOfItemsBought] = item.id
         bucksCountlbl.textContent = `${numOfTigerBucks} Tiger Bucks`
         alert("You bought " + item.id + " for " + itemPrice + " tiger bucks!")
 

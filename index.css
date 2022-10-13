@@ -1,5 +1,5 @@
 #school-items{
-    background-color: yellow;
+    background-color: greenyellow;
     display: inline-block;
     height: 500px;
     width: 500px;
@@ -9,7 +9,7 @@
 
 }
 #snack-items{
-    background-color: white;
+    background-color: orange;
     display: inline-block;
     height: 500px;
     width: 500px;
@@ -17,8 +17,8 @@
     overflow: hidden;
   
 }
-#chip-items{
-    background-color: blue;
+#raffle-items{
+    background-color: lightblue;
     display: inline-block;
     height: 500px;
     width: 500px;
@@ -95,4 +95,8 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     text-align: center;
+}
+
+.item-section{
+    border-radius: 25px;
 }
