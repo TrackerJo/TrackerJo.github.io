@@ -8,7 +8,8 @@ const CLIENT_ID = '121005583930-rg8vb71qq25rfevvmi3krh3lr0o3clau.apps.googleuser
 const API_KEY = 'AIzaSyCI-AEx3ZdOx9W03_iKRMcJCRJl4AB-Qd0';
 
 // Discovery doc URL for APIs used by the quickstart
-const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+const DISCOVERY_DOC = ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+//,'https://people.googleapis.com/$discovery/rest?version=v1';
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
@@ -23,6 +24,7 @@ const store = document.getElementById('store');
 document.getElementById('login-google').style.visibility = 'hidden';
 document.getElementById('enter-store').style.visibility = 'hidden';
 document.getElementById('school-info').style.visibility = 'hidden';
+document.getElementById('cart').style.visibility = 'hidden';
 store.style.visibility = 'hidden';
 
 /**
@@ -39,7 +41,7 @@ function gapiLoaded() {
 async function intializeGapiClient() {
     await gapi.client.init({
         apiKey: API_KEY,
-        discoveryDocs: [DISCOVERY_DOC],
+        discoveryDocs: DISCOVERY_DOC,
     });
     gapiInited = true;
     maybeEnableButtons();
@@ -80,9 +82,9 @@ function handleAuthClick() {
         let label = document.createElement('label');
         label.textContent = "Successfully logged into Google!"
         label.id="logged-in"
-        document.getElementById('login-google').remove()
+        document.getElementById('google-signin').remove()
         document.getElementById('school-info').style.visibility = 'visible';
-        
+       
         
     };
     
@@ -102,8 +104,10 @@ const gradeInput = document.getElementById('grade');
 const nameInput = document.getElementById('name');
 const enterBtn = document.getElementById('enter-store');
 const halftimeInput = document.getElementById('halftime');
+const reviewOrderBtn = document.getElementById('review-order')
 const submitOrderBtn = document.getElementById('submit-order')
 const bucksCountlbl = document.getElementById('bucks-count')
+const accountInfoBtn = document.getElementById('accountInfo')
 const items = document.querySelectorAll('.item')
 const storeSheetID = "1FzgpF7zWxAEZqDGVi-ynbrXbktBhPUmNN8b04nzSJlE"
 const pricesSheetName = "Shop Prices"
@@ -135,6 +139,10 @@ let numOfOrders
 loginGoogleBtn.addEventListener('click', () => {
     handleAuthClick()
 });
+
+accountInfoBtn.addEventListener('click', () => {
+    alert("Email: tigerbuckstore@gmail.com\nPassword: tigerStore!23")
+})
 
 function checkIfCompletedLogin(){
     if(validName && gLoggedIn){
@@ -311,9 +319,41 @@ enterBtn.addEventListener('click', async () => {
     login.remove()
 
     store.style.visibility = 'visible';
-
+    
     alert("Welcome " + studentName + " to the Tiger Store! You are in " + studentGrade + "th grade and have " + numOfTigerBucks + " tiger bucks" )
 })
+
+async function peopleAPI(){
+    let pName;
+
+       
+   // pName = gapi.client.people.people.get({
+   //     'resourceName': 'people/me',
+    //    'requestMask': 'names'
+    //    });
+    
+    response = await gapi.client.people.people.get({
+        'resourceName': 'people/me',
+      'requestMask.includeField': 'person.names'
+      });
+      const connections = response.result.names[0].givenName;
+     // if (!connections || connections.length == 0) {
+        //document.getElementById('content').innerText = 'No connections found.';
+       // console.log("NO CONNECTION FOUND")
+       // return;
+      //}
+      // Flatten to string to display
+     /* const output = connections.reduce(
+          (str, person) => {
+            if (!person.names || person.names.length === 0) {
+              return `${str}Missing display name\n`;
+            }
+            return `${str}${person.names[0].displayName}\n`;
+          },
+          'Connections:\n');
+    */
+    console.log(connections)
+}
 
 items.forEach((item) => {
     item.addEventListener('click', () => {
@@ -352,6 +392,13 @@ items.forEach((item) => {
     })
 })
 
+reviewOrderBtn.addEventListener('click', () => {
+    document.getElementById('store').remove()
+    document.getElementById('cart').style.visibility = 'visible';
+    loadShopCart()
+})
+
+
 submitOrderBtn.addEventListener('click', async () => {
     alert(`Order Summary: \n Name: ${order.orderName} \n Halftime Facilitator: ${order.orderHalftime} \n Item #1: ${order.orderItem1} \n Item #2: ${order.orderItem2} \n Item #3: ${order.orderItem3}`)
     numOfOrders++;
@@ -361,3 +408,38 @@ submitOrderBtn.addEventListener('click', async () => {
     location.reload()
 
 })
+
+
+function loadShopCart(){
+    const table = document.getElementById('shop-cart')
+    if(order.orderItem1 != ""){
+        let newEntry = document.createElement('tr')
+        let orderItemName = document.createElement('td')
+        orderItemName.textContent = order.orderItem1
+        let orderItemCost = document.createElement('td')
+        orderItemCost.textContent = itemPrices[order.orderItem1]
+        table.appendChild(newEntry)
+        newEntry.appendChild(orderItemName)
+        newEntry.appendChild(orderItemCost)
+    } 
+    if(order.orderItem2 != ""){
+        let newEntry = document.createElement('tr')
+        let orderItemName = document.createElement('td')
+        orderItemName.textContent = order.orderItem2
+        let orderItemCost = document.createElement('td')
+        orderItemCost.textContent = itemPrices[order.orderItem2]
+        table.appendChild(newEntry)
+        newEntry.appendChild(orderItemName)
+        newEntry.appendChild(orderItemCost)
+    }
+    if(order.orderItem3 != ""){
+        let newEntry = document.createElement('tr')
+        let orderItemName = document.createElement('td')
+        orderItemName.textContent = order.orderItem3
+        let orderItemCost = document.createElement('td')
+        orderItemCost.textContent = itemPrices[order.orderItem3]
+        table.appendChild(newEntry)
+        newEntry.appendChild(orderItemName)
+        newEntry.appendChild(orderItemCost)
+    }
+}

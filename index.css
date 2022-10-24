@@ -31,6 +31,15 @@
     text-align: center;
 }
 
+#cart{
+    text-align: center;
+    display: grid;
+    
+}
+th {
+    border-bottom: 1px solid black;
+}
+
 #login{
     text-align: center;
     font-size: 25px;
@@ -57,11 +66,12 @@
 
 #login-google{
    
-    height: 50px;
-    width: 150px;
-    font-size: 17px;
+    
+    width: 250px;
+    height: auto;
     margin-bottom: 1em;
     margin-top: 1em;
+    margin-left: -40px;
     display: inline-block;
     vertical-align: middle;
     
@@ -81,10 +91,17 @@
     margin-bottom: 0em;
 }
 
+#review-order{
+    height: 50px;
+    width: 150px;
+    font-size: 20px;
+}
+
 #submit-order{
     height: 50px;
     width: 150px;
     font-size: 20px;
+    
 }
 
 #google-signin{
@@ -99,4 +116,12 @@
 
 .item-section{
     border-radius: 25px;
+}
+
+li:not(:first-of-type) {
+    margin-top: 1em;
+}
+
+li:not(:last-of-type) {
+    margin-bottom: 1em;
 }
