@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="store.css">
+    <title>Tiger Store</title>
+</head>
+<body>
+    <div id="login">
+        <h1 id="login-title">Tiger Store Login</h1>
+        <div id="google-signin">
+            <img id="login-google" src="/signin-with-google.png" width="573" height="127"></img>
+            <br>
+            <button id="accountInfo">View Account Info</button>
+        </div>
+        <div id="school-info">
+            <span class="br"></span> 
+            <br>
+            <label for="name">What is your first and last name?</label>
+            <input type="text" name="name" id="name">
+            <br>
+            <label for="grade">What is your grade level?</label>
+            <br>
+            <select name="grade" id="grade">
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                </select>
+            <br>
+            
+            <label for="halftime">Who is your halftime facilitator?</label>
+            <br>
+            <select name="halftime" id="halftime">
+                <option value="Ms. Kemme">Ms. Kemme</option>
+                <option value="Mr. Leppers">Mr. Leppers</option>
+                </select>
+            <br style=
+            "line-height:40px">
+        </div>
+        <button id="enter-store">Enter Store</button>
+        <br>
+    </div>
+    <div id="store">
+        <h1>Tiger Store</h1>
+        <label id="bucks-count">0 Tiger Bucks</label>
+        <br>
+        <span class="item-section" id="school-items">
+            <h2>School Items</h2>
+            <ul>
+                <li class="item" id="Earbuds" data-type="school">Earbuds</li>
+                <li class="item" id="Water Bottle" data-type="school">Water Bottle</li>
+                <li class="item" id="Stickers" data-type="school">Stickers</li>
+                <li class="item" id="Gel Pens" data-type="school">Gel Pens</li>
+                <li class="item" id="Rubber Bracelets" data-type="school">Rubber Bracelets</li>
+                <li class="item" id="Pencils" data-type="school">Pencils</li>
+                <li class="item" id="Sunglasses" data-type="school">Sunglasses</li>
+                <li class="item" id="Stylist Pens" data-type="school">Stylist Pens</li>
+                <li class="item" id="Hair Ties" data-type="school">Hair Ties</li>
+                <li class="item" id="Swag Card" data-type="school">Swag Card</li>
+                <li class="item" id="Lanyard" data-type="school">Lanyard</li>
+                <li class="item" id="XL Trust Card Protector" data-type="school">XL Trust Card Protector</li>
+            </ul>
+
+        </span>
+        <span class="item-section" id="snack-items">
+            <h2>Snacks</h2>
+            <ul>
+                <li class="item" id="Rice Crispy Treat" data-type="snack">Rice Crispy Treat</li>
+                <li class="item" id="Doritos" data-type="snack">Doritos</li>
+                <li class="item" id="Cheetos" data-type="snack">Cheetos</li>
+                <li class="item" id="Funyuns" data-type="snack">Funyuns</li>
+                <li class="item" id="Lays" data-type="snack">Lays</li>
+                <li class="item" id="Frittos" data-type="snack">Frittos</li>
+                <li class="item" id="Fruit Snacks" data-type="snack">Fruit Snacks</li>
+                <li class="item" id="Honey Bun" data-type="snack">Honey Bun</li>
+            </ul>
+        </span>
+        <span class="item-section" id="raffle-items">
+            <h2>Raffles</h2>
+            <ul>
+                <li class="item" id="Raffle Ticket" data-type="raffle">Raffle Ticket</li>
+            </ul>
+        </span>
+        <br>
+        <button id="review-order">Review Order</button>
+        
+    </div>
+    <div id="cart">
+        <h1>Shopping Cart</h1>
+        <table id="shop-cart">
+            <tr>
+                <th>Item Name</th>
+                <th>Item Cost (Tiger Bucks)</th>
+            </tr>
+        </table>
+        <br>
+        <button id="submit-order">Submit Order</button>
+    
+    </div>
+    <script src="store.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</body>
+</html>
