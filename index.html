@@ -16,9 +16,16 @@
     <br>
     <label>Please note this website needs access to your google sheets to view and edit a certain spreadsheet</label>
     <script>
-        document.getElementById('shopBtn').addEventListener('click', () => {
-            window.location.assign("store.html")
-        })
+        //Domcontetntloaded
+        document.addEventListener("DOMContentLoaded", function() {
+            //Get the button
+            var shopBtn = document.getElementById("shopBtn");
+            //Add event listener
+            shopBtn.addEventListener("click", function() {
+                //Redirect to the store
+                window.location.href = "store.html";
+            });
+        });
     </script>
 </body>
 </html>
