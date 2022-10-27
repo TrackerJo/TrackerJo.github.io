@@ -11,9 +11,14 @@
     <p>This website is used as a store where you can get items using your tiger bucks</p>
     <h3>Please note this only for FWCS Students</h3>
     <p>Enter the shop by logging in with the button below</p>
-    <button href="./store.html">Shop</button>
+    <button id="shopBtn">Shop</button>
     <br>
     <br>
     <label>Please note this website needs access to your google sheets to view and edit a certain spreadsheet</label>
+    <script>
+        document.getElementById('shopBtn').addEventListener('click', () => {
+            window.location.assign("store.html")
+        })
+    </script>
 </body>
 </html>
