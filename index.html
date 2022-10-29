@@ -7,6 +7,7 @@
     <title>Tiger Store</title>
 </head>
 <body>
+    
     <h1>Hello! This is the Tiger Store!</h1>
     <p>This website is used as a store where you can get items using your tiger bucks</p>
     <h3>Please note this only for FWCS Students</h3>
@@ -15,9 +16,13 @@
     <br>
     <br>
     <label>Please note this website needs access to your google sheets to view and edit a certain spreadsheet</label>
+    <label>If you want to view our Privacy Policy click the button below</label>
+    <br>
+    <button id="privacyBtn">Privacy Policy</button>
     <script>
         //Domcontetntloaded
         document.addEventListener("DOMContentLoaded", function() {
+           
             //Get the button
             var shopBtn = document.getElementById("shopBtn");
             //Add event listener
@@ -25,7 +30,42 @@
                 //Redirect to the store
                 window.location.href = "store.html";
             });
+
+            //Get Privacy Button
+            const privacyBtn = document.getElementById('privacyBtn')
+            //Add click event to privacyBtn
+            privacyBtn.addEventListener('click', ()=>{
+                //Redirect to privacy.html
+                window.location.href = "privacy.html"
+            })
         });
+    
+        //Animate shop  button on hover
+        document.getElementById("shopBtn").addEventListener("mouseover", function() {
+            document.getElementById("shopBtn").style.backgroundColor = "rgb(0, 0, 0)";
+            document.getElementById("shopBtn").style.color = "rgb(255, 255, 255)";
+        });
+        //Reset css of shop button on mouseout
+        document.getElementById("shopBtn").addEventListener("mouseout", function() {
+            document.getElementById("shopBtn").style.backgroundColor = "rgb(255, 255, 255)";
+            document.getElementById("shopBtn").style.color = "rgb(0, 0, 0)";
+        });
+       //Enlarge shop button on hover
+        document.getElementById("shopBtn").addEventListener("mouseover", function() {
+            document.getElementById("shopBtn").style.transform = "scale(1.2)";
+        });
+        //Reset css of shop button on mouseout
+        document.getElementById("shopBtn").addEventListener("mouseout", function() {
+            document.getElementById("shopBtn").style.transform = "scale(1)";
+        });
+       
+        //Create a spinning square that spins on mouseover
+
+        
+       
+
+        
+        
     </script>
 </body>
-</html>
+</html
