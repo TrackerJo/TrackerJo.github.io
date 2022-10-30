@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiger Store</title>
+    <title>Tiger Store Homepage</title>
 </head>
 <body>
     
-    <h1>Hello! This is the Tiger Store!</h1>
+    <h1 id="title">Hello! This is the Tiger Store!</h1>
     <p>This website is used as a store where you can get items using your tiger bucks</p>
     <h3>Please note this only for FWCS Students</h3>
+    <p>When you login, you give us the ability to view, edit, and delete spreadsheets. We also have access to your contact(Your full name and your email)</p>
     <p>Enter the shop by logging in with the button below</p>
     <button id="shopBtn">Shop</button>
     <br>
@@ -20,26 +21,65 @@
     <br>
     <button id="privacyBtn">Privacy Policy</button>
     <script>
+        
         //Domcontetntloaded
         document.addEventListener("DOMContentLoaded", function() {
+           //Increase shop button opacity slowly start at 0 end at 1
+              let shopBtn = document.getElementById("shopBtn");
+                shopBtn.style.opacity = 0;
+                let opacity = 0;
+                let interval = setInterval(function() {
+                    if (opacity >= 1) {
+                        clearInterval(interval);
+                    }
+                    shopBtn.style.opacity = opacity;
+                    opacity += opacity * 0.1 || 0.1;
+                }, 20);
+
+                //Increase privacy button opacity slowly start at 0 end at 1
+                let privacyBtn = document.getElementById("privacyBtn");
+                privacyBtn.style.opacity = 0;
+                let opacity2 = 0;
+                let interval2 = setInterval(function() {
+                    if (opacity2 >= 1) {
+                        clearInterval(interval2);
+                    }
+                    privacyBtn.style.opacity = opacity2;
+                    opacity2 += opacity2 * 0.1 || 0.1;
+                }, 20);
+              
+            
            
-            //Get the button
-            var shopBtn = document.getElementById("shopBtn");
             //Add event listener
             shopBtn.addEventListener("click", function() {
                 //Redirect to the store
                 window.location.href = "store.html";
             });
 
-            //Get Privacy Button
-            const privacyBtn = document.getElementById('privacyBtn')
+            
             //Add click event to privacyBtn
             privacyBtn.addEventListener('click', ()=>{
                 //Redirect to privacy.html
                 window.location.href = "privacy.html"
             })
         });
-    
+      //Enlarge privacyBtn on hover
+        document.getElementById('privacyBtn').addEventListener('mouseover', ()=>{
+            //change color of button
+            document.getElementById('privacyBtn').style.backgroundColor = 'black'
+            //change color of text
+            document.getElementById('privacyBtn').style.color = 'white'
+            document.getElementById('privacyBtn').style.transform = 'scale(1.2)'
+            document.getElementById('privacyBtn').style.transition = 'all 0.5s ease'
+        })
+        //Shrink privacyBtn on mouseout
+        document.getElementById('privacyBtn').addEventListener('mouseout', ()=>{
+            document.getElementById('privacyBtn').style.transform = 'scale(1)'
+            //reset css
+            document.getElementById('privacyBtn').style.backgroundColor = 'white'
+            document.getElementById('privacyBtn').style.color = 'black'
+        })
+        
         //Animate shop  button on hover
         document.getElementById("shopBtn").addEventListener("mouseover", function() {
             document.getElementById("shopBtn").style.backgroundColor = "rgb(0, 0, 0)";
@@ -53,6 +93,7 @@
        //Enlarge shop button on hover
         document.getElementById("shopBtn").addEventListener("mouseover", function() {
             document.getElementById("shopBtn").style.transform = "scale(1.2)";
+            document.getElementById('shopBtn').style.transition = 'all 0.5s ease'
         });
         //Reset css of shop button on mouseout
         document.getElementById("shopBtn").addEventListener("mouseout", function() {
