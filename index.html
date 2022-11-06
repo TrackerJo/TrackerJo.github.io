@@ -25,6 +25,9 @@
     <title>Meta Test</title>
 </head>
 <body>
-    
+    <script>
+        document.querySelector('meta[name~="description"]').setAttribute("content", "hi");
+    console.log(document.querySelector('meta[name~="description"]')?.content)
+    </script>
 </body>
 </html>
