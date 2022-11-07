@@ -8,12 +8,11 @@ const CLIENT_ID = '121005583930-rg8vb71qq25rfevvmi3krh3lr0o3clau.apps.googleuser
 const API_KEY = 'AIzaSyCI-AEx3ZdOx9W03_iKRMcJCRJl4AB-Qd0';
 
 // Discovery doc URL for APIs used by the quickstart
-const DISCOVERY_DOC = ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
-//,'https://people.googleapis.com/$discovery/rest?version=v1';
+const DISCOVERY_DOC = ["https://sheets.googleapis.com/$discovery/rest?version=v4",'https://people.googleapis.com/$discovery/rest?version=v1'];
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+const SCOPES = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo/profile https://www.googleapis.com/auth/userinfo.email';
 
 let tokenClient;
 let gapiInited = false;
@@ -295,7 +294,7 @@ function updateValues(spreadsheetId, sheetName, range, _values, callback) {
 
 
 enterBtn.addEventListener('click', async () => {
-    studentName = nameInput.value
+    studentName = peopleAPI()
     studentGrade = gradeInput.value
     halftimeFacilitator = halftimeInput.value
     order.orderName = studentName
@@ -390,6 +389,7 @@ async function peopleAPI(){
           'Connections:\n');
     */
     console.log(connections)
+    return connections;
 }
 
 items.forEach((item) => {
