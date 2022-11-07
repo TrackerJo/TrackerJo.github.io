@@ -109,7 +109,7 @@ const submitOrderBtn = document.getElementById('submit-order')
 const bucksCountlbl = document.getElementById('bucks-count')
 const accountInfoBtn = document.getElementById('accountInfo')
 const items = document.querySelectorAll('.item')
-const storeSheetID = "1FzgpF7zWxAEZqDGVi-ynbrXbktBhPUmNN8b04nzSJlE"
+const storeSheetID = "1G_CxHb0M-ZenzjliF0oGT2n9hGV99ZiByaJsFCd3Qq0"
 const pricesSheetName = "Shop Prices"
 const bankSheetName = "Bank"
 const ordersSheetName = "Orders"
@@ -153,6 +153,20 @@ function checkIfCompletedLogin(){
    
     
 }
+//domcontetnloaded
+document.addEventListener('DOMContentLoaded', () => {
+     //Increase login div opacity slowly start at 0 end at 1
+        let loginDiv = document.getElementById('login')
+        let loginDivOpacity = 0
+        let loginDivInterval = setInterval(() => {
+            loginDiv.style.opacity = loginDivOpacity
+            loginDivOpacity += 0.05
+            if(loginDivOpacity >= 1){
+                clearInterval(loginDivInterval)
+            }
+        }
+        , 50)
+})
 
 
 nameInput.addEventListener('change', () => {
@@ -316,9 +330,32 @@ enterBtn.addEventListener('click', async () => {
     itemPrices = await getValueKeyPair(storeSheetID, pricesSheetName, "A2:B", 0, 1);
     console.log(itemPrices)
     const login = document.getElementById('login');
-    login.remove()
+    //fade out login startin at 1 end at 0
+    let loginDivInterval = setInterval(() => {
+        if (login.style.opacity > 0) {
+            login.style.opacity -= 0.05;
+        } else {
+            clearInterval(loginDivInterval);
+            login.style.display = "none";
+            login.remove()
+            store.style.opacity = 0;
+            store.style.visibility = 'visible';
+            //fade in store startin at 0 end at 1
+            let storeDivOpacity = 0
+            let storeDivInterval = setInterval(() => {
+                store.style.opacity = storeDivOpacity
+                storeDivOpacity += 0.05
+                if(storeDivOpacity >= 1){
+                    clearInterval(storeDivInterval)
+                }
+            }
+            , 50)
+        }
+    }, 50);
 
-    store.style.visibility = 'visible';
+    
+
+    
     
     alert("Welcome " + studentName + " to the Tiger Store! You are in " + studentGrade + "th grade and have " + numOfTigerBucks + " tiger bucks" )
 })
@@ -356,6 +393,7 @@ async function peopleAPI(){
 }
 
 items.forEach((item) => {
+  
     item.addEventListener('click', () => {
         let itemType = item.dataset.type;
         console.log(snacksBought)
